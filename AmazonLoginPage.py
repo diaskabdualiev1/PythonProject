@@ -1,6 +1,9 @@
+import time
+
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+
 
 class AmazonLoginPage:
     def __init__(self, driver):
@@ -10,6 +13,7 @@ class AmazonLoginPage:
         self.email_input = (By.ID, "ap_email")
         self.password_input = (By.ID, "ap_password")
         self.continue_button = (By.ID, "continue")
+        self.hello_text_zone = (By.CLASS_NAME, "nav-line-1-container")
 
     def navigate_to_sign_in(self):
         WebDriverWait(self.driver, 10).until(
@@ -22,3 +26,19 @@ class AmazonLoginPage:
         WebDriverWait(self.driver, 10).until(
             EC.visibility_of_element_located(self.password_input)).send_keys(password)
         self.driver.find_element(*self.sign_in_button).click()
+
+    def is_logged_in_successfully(self):
+        WebDriverWait(self.driver, 10).until(
+            EC.visibility_of_element_located((By.CLASS_NAME, "nav-line-1-container"))
+        )
+        account_name_element = self.driver.find_element(By.CLASS_NAME, "nav-line-1-container")
+        print(account_name_element.text)
+        return "Hello, Sign in" not in account_name_element.text
+
+# def is_logged_in_successfully(self):
+#      WebDriverWait(self.driver, 10).until(
+#          EC.visibility_of_element_located(self.hello_text_zone)
+#      )
+#      account_name_element = self.driver.find_element(self.hello_text_zone)
+#      print(account_name_element.text)  # Для отладки
+#      return "Hello, Sign in" not in account_name_element.text
