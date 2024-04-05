@@ -15,6 +15,7 @@ class AmazonLoginPage:
         self.continue_button = (By.ID, "continue")
         self.hello_text_zone = (By.CLASS_NAME, "nav-line-1-container")
 
+
     def navigate_to_sign_in(self):
         WebDriverWait(self.driver, 10).until(
             EC.element_to_be_clickable(self.account_lists)).click()
@@ -42,3 +43,4 @@ class AmazonLoginPage:
 #      account_name_element = self.driver.find_element(self.hello_text_zone)
 #      print(account_name_element.text)  # Для отладки
 #      return "Hello, Sign in" not in account_name_element.text
+
